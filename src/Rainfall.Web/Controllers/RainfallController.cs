@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Rainfall.Core.Dto;
 using Rainfall.Service;
 using Rainfall.Web.Model;
+using System.Net;
 
 namespace Rainfall.Web.Controllers
 {
@@ -23,11 +26,25 @@ namespace Rainfall.Web.Controllers
         }
 
         [HttpGet("get-rainfall-stations")]
-        public async Task<ActionResult<List<EnvironmentDataStationDto>>> GetRainfallStations([FromQuery] RainFallQuery rainfallQuery)
+        public async Task<ActionResult<List<EnvironmentDataStationDto>>> GetRainfallStations([FromQuery] RainFallRequestDto rainfallQuery, [FromServices] IValidator<RainFallRequestDto> validator)
         {
-            _logger.LogInformation($"get-rainfall-stations processed a request!");
+
             try
             {
+                ValidationResult validationResult = validator.Validate(rainfallQuery);
+                if (!validationResult.IsValid)
+                {
+                    var modelStateDictionary = new ModelStateDictionary();
+                    foreach (ValidationFailure failure in validationResult.Errors)
+                    {
+                        modelStateDictionary.AddModelError(
+                            failure.PropertyName,
+                            failure.ErrorMessage);
+                    }
+                    return ValidationProblem(modelStateDictionary);
+                }
+
+                _logger.LogInformation($"get-rainfall-stations processed a request!");
                 var response = await _environmentDataService.GetRainfallStations(rainfallQuery.limit, rainfallQuery.offset, rainfallQuery.view);
                 var stations = _mapper.Map<List<EnvironmentDataStationDto>>(response.items);
 

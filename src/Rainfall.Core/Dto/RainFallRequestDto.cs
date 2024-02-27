@@ -3,9 +3,9 @@
 
     public class RainFallRequestDto
     {
-        public string? view { get; set; }
+        public string? _view { get; set; }
 
-        public string? label { get; set; }
+        public string? _abel { get; set; }
 
 
         public string? stationReference { get; set; }
@@ -13,9 +13,9 @@
         public string? search { get; set; }
 
 
-        public int limit { get; set; }
+        public string? _limit { get; set; }
 
 
-        public int offset { get; set; }
+        public string? _offset { get; set; }
     }
 }

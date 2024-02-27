@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rainfall.Core.Dto
 {
-    public class EnvironmentDataStationDto
+    public class EnvironmentDataStationResponseDto
     {
         public string? id { get; set; }
         public string? RLOIid { get; set; }

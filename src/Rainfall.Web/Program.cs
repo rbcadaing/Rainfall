@@ -1,10 +1,8 @@
 
 using Rainfall.Core.Common;
-using Rainfall.Core.Validations;
 using Rainfall.Service;
-using Rainfall.Web.Model;
 using FluentValidation;
-using FluentValidation.AspNetCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +19,26 @@ builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    //c.DocumentFilter<DescriptionsDocumentFilter>();
+
+    c.SwaggerDoc("v1",
+        new OpenApiInfo
+        {
+            Title = "Rainfall Api",
+            Version = "1.0",
+            Contact = new OpenApiContact
+            {
+                Name = "Sorted",
+                Url = new Uri("https://www.sorted.com")
+            },
+            Description = "An API which provides rainfall reading data",
+           
+        });
+    c.AddServer(new OpenApiServer { Url = "https://localhost:7259/", Description = "Rainfall Api" });
+});
+
 builder.Services.AddHttpClient("RainfallApi", httpClient =>
 {
     httpClient.BaseAddress = new Uri(rainfallBaseAddress ?? "");

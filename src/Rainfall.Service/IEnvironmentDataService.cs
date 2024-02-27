@@ -9,6 +9,6 @@ namespace Rainfall.Service
 {
     public interface IEnvironmentDataService
     {
-        Task<EnvironmentDataStation> GetRainfallStations(int limit, int offset, string view = null);
+        Task<EnvironmentDataStation> GetRainfallStations(Dictionary<string,string> QParams);
     }
 }

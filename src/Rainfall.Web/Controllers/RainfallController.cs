@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Rainfall.Core.Dto;
 using Rainfall.Service;
 using Rainfall.Web.Model;
-using System.Net;
+using System.Reflection;
 
 namespace Rainfall.Web.Controllers
 {
+    [Tags("Name: Rainfall Station")]
     [Route("api/[controller]")]
     [ApiController]
     public class RainfallController : ControllerBase
@@ -26,11 +27,12 @@ namespace Rainfall.Web.Controllers
         }
 
         [HttpGet("get-rainfall-stations")]
-        public async Task<ActionResult<List<EnvironmentDataStationDto>>> GetRainfallStations([FromQuery] RainFallRequestDto rainfallQuery, [FromServices] IValidator<RainFallRequestDto> validator)
+        public async Task<ActionResult<List<EnvironmentDataStationResponseDto>>> GetRainfallStations([FromQuery] RainFallRequestDto rainfallQuery, [FromServices] IValidator<RainFallRequestDto> validator)
         {
 
             try
             {
+                // Validate Model State
                 ValidationResult validationResult = validator.Validate(rainfallQuery);
                 if (!validationResult.IsValid)
                 {
@@ -44,9 +46,15 @@ namespace Rainfall.Web.Controllers
                     return ValidationProblem(modelStateDictionary);
                 }
 
+               
                 _logger.LogInformation($"get-rainfall-stations processed a request!");
-                var response = await _environmentDataService.GetRainfallStations(rainfallQuery.limit, rainfallQuery.offset, rainfallQuery.view);
-                var stations = _mapper.Map<List<EnvironmentDataStationDto>>(response.items);
+
+                var _params = rainfallQuery.GetType()
+                             .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                                  .ToDictionary(prop => prop.Name, prop => (string)prop.GetValue(rainfallQuery, null));
+
+                var response = await _environmentDataService.GetRainfallStations(_params);
+                var stations = _mapper.Map<List<EnvironmentDataStationResponseDto>>(response.items);
 
                 if (stations == null) return StatusCode(204);
 

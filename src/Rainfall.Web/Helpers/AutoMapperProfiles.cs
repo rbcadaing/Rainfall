@@ -8,9 +8,9 @@ namespace Rainfall.Web.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Item, EnvironmentDataStationDto>();
+            CreateMap<Item, EnvironmentDataStationResponseDto>();
 
-            CreateMap<EnvironmentDataStationDto,Item>();
+            CreateMap<EnvironmentDataStationResponseDto,Item>();
         }
     }
 }

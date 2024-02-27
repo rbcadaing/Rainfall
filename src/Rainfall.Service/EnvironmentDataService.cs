@@ -17,7 +17,7 @@ namespace Rainfall.Service
         private readonly ILogger<EnvironmentDataService> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration;
-        
+
 
         public EnvironmentDataService(ILogger<EnvironmentDataService> logger, IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
@@ -26,16 +26,29 @@ namespace Rainfall.Service
             _configuration = configuration;
         }
 
-        public async Task<EnvironmentDataStation> GetRainfallStations(int limit, int offset, string view)
+        public async Task<EnvironmentDataStation> GetRainfallStations(Dictionary<string, string> QParams)
         {
             using (var client = _httpClientFactory.CreateClient("RainfallApi"))
             {
-                var endpoint = $"{_configuration["RainFallStationsEndpoint"]}&_limit={limit.ToString()}&_offset={offset.ToString()}";
+                var endpoint = $"{_configuration["RainFallStationsEndpoint"]}?parameter=rainfall&{QueryStringBuilder(QParams)}";
 
                 var response = await client.GetAsync(endpoint);
                 var content = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<EnvironmentDataStation>(content);
             }
+        }
+
+        public string QueryStringBuilder(Dictionary<string, string> QParams)
+        {
+            StringBuilder _qParams = new StringBuilder("");
+            foreach (var kvp in QParams)
+            {
+                if (kvp.Value != null)
+                {
+                    _qParams.Append($"{kvp.Key}={kvp.Value}&");
+                }
+            }
+            return _qParams.ToString().Substring(0, _qParams.Length - 1);
         }
     }
 }

@@ -3,6 +3,8 @@ using Rainfall.Core.Common;
 using Rainfall.Service;
 using FluentValidation;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Options;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +39,7 @@ builder.Services.AddSwaggerGen(c =>
            
         });
     c.AddServer(new OpenApiServer { Url = "https://localhost:7259/", Description = "Rainfall Api" });
+
 });
 
 builder.Services.AddHttpClient("RainfallApi", httpClient =>

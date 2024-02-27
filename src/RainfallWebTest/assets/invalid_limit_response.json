@@ -1,0 +1,12 @@
+{
+  "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+  "title": "One or more validation errors occurred.",
+  "status": 400,
+  "errors": {
+    "_limit": [
+      "'_limit' must not be empty.",
+      "Allowed values are positive numbers only"
+    ]
+  },
+  "traceId": "00-0eaaee7bbc219a96b8e665d176935257-16d4212a9b39d838-00"
+}

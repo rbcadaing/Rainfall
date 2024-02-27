@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RainfallWebTest", "src\RainfallWebTest\RainfallWebTest.csproj", "{955821A1-D2B7-4806-9953-10E7BED3764F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{BD2107C2-71AC-4F34-BFD8-21FA11E0368C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD2107C2-71AC-4F34-BFD8-21FA11E0368C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD2107C2-71AC-4F34-BFD8-21FA11E0368C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{955821A1-D2B7-4806-9953-10E7BED3764F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{955821A1-D2B7-4806-9953-10E7BED3764F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{955821A1-D2B7-4806-9953-10E7BED3764F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{955821A1-D2B7-4806-9953-10E7BED3764F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{97298DE7-902E-4781-A24F-30FE698AD871} = {6F9D593B-70C9-4086-A20C-E912CF5501BC}
 		{2AD7D45D-4248-4FD1-89B3-ABC309C4F69B} = {6F9D593B-70C9-4086-A20C-E912CF5501BC}
 		{BD2107C2-71AC-4F34-BFD8-21FA11E0368C} = {6F9D593B-70C9-4086-A20C-E912CF5501BC}
+		{955821A1-D2B7-4806-9953-10E7BED3764F} = {FACAE648-2F57-447F-8204-6E61B636D1C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2C82D1F5-6E8A-4404-8DD5-66C4285ACC03}
